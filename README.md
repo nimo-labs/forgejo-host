@@ -42,11 +42,11 @@ This is the container that your workflows will run in. You can edit the `Dockerf
 ## Build act
 `cd ../act`
 
-`./build.sh`
-
 <<Edit ip/hostname in docker-compose to point at your forgejo instance>>
 
 <<Grab token from forgejo admin/runners and add to  docker-compose file>>
+
+`docker-compose build`
 
 `docker-compose up -d`
 
