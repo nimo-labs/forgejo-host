@@ -1,15 +1,15 @@
 version: "3"
-
 services:
   act_runner:
-    #image: kunde21/gitea-arm
-    image: act_runner
-    container_name: act_runner_1
+    build: . 
+    image: nimo_labs/act_runner:1.0.0
+    container_name: act_runner
+    network_mode: "host"
     environment:
       - SERVER_ADDR=<enter forgejo server address here :3000>
       - TOKEN=<enter token here>
       - LABELS=ubuntu-docker:docker://ubuntu-docker:latest
-    restart: always
-    network_mode: "host"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /path/to/act_runner:/act_runner
+    restart: unless-stopped
