@@ -8,7 +8,7 @@ RUN apt update && apt -y install \
 	&& apt clean \	
 	&& rm -rf /var/lib/apt/lists/* 
 
-RUN wget -o forgejo https://codeberg.org/forgejo/forgejo/releases/download/v1.19.3-0/forgejo-1.19.3-0-linux-amd64 \
+RUN wget -O forgejo https://codeberg.org/forgejo/forgejo/releases/download/v1.19.3-0/forgejo-1.19.3-0-linux-amd64 \
 	&& chmod +x forgejo \
 	&& mv forgejo /usr/local/bin/forgejo
 

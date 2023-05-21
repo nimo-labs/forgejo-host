@@ -7,7 +7,7 @@ networks:
 services:
   forgejo_server:
     build: .
-    image: nico-labs/forgejo_server:1.0
+    image: nimo-labs/forgejo_server:1.0
     container_name: forgejo_server
     hostname: forgejo_server
     environment:
