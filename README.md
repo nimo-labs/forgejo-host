@@ -12,6 +12,10 @@ Clone the repository.
 ## Set up Forgejo
 `cd ../forgejo-1.19.3`
 
+`wget https://codeberg.org/attachments/25eea495-ba85-4061-bec0-cf9823b63cb2 -o forgejo-1.19.3-0-linux-amd64`
+
+The Forgejo releases can be found here: https://codeberg.org/forgejo/forgejo/releases edit the wget line above to retrieve the desired release.
+
 `./build.sh`
 
 << edit gitea/custom/conf/app.ini to add :
