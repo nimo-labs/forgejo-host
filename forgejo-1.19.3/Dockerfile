@@ -27,6 +27,6 @@ RUN useradd -m forgejo \
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"] #may need to be refactored
 
 CMD ["/usr/local/bin/forgejo", "web"]
