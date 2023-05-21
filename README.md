@@ -18,17 +18,20 @@ The Forgejo releases can be found here: https://codeberg.org/forgejo/forgejo/rel
 
 `./build.sh`
 
+`docker-compose up -d`
+
+User a web browser to navigate to `https://<myserverip>:3000` and finish the setup process. For DB type, ensure that SQLite is selected.
+
+Once the setup process has finished and you are able to login...
+
 << edit gitea/custom/conf/app.ini to add :
 ```
 [actions]
 ENABLED = true
 ```
-
 to the end of the file >>>
 
-`docker-compose up -d`
-
-User a web browser to navigate to `https://<myserverip>:3000` and finish the setup process. For DB type, ensure that SQLite is selected.
+Then restart the Forgejo container `docker-compose down && docker-compose up`
 
 ## Build the base runner container
 
