@@ -10,7 +10,7 @@ A combination of Forgejo, Action runner and Docker registry
 Clone the repository.
 
 ## Set up Forgejo
-`cd ../forgejo-1.19.3`
+`cd forgejo-1.19.3`
 
 `wget https://codeberg.org/attachments/25eea495-ba85-4061-bec0-cf9823b63cb2 -o forgejo-1.19.3-0-linux-amd64`
 
@@ -20,24 +20,22 @@ The Forgejo releases can be found here: https://codeberg.org/forgejo/forgejo/rel
 
 `docker-compose up -d`
 
-User a web browser to navigate to `https://<myserverip>:3000` and finish the setup process. For DB type, ensure that SQLite is selected.
+Use a web browser to navigate to `https://<myserverip>:3000` and finish the setup process. For DB type, ensure that SQLite is selected.
 
 Once the setup process has finished and you are able to login...
 
-<< edit gitea/custom/conf/app.ini to add :
+Edit gitea/custom/conf/app.ini to add the following to the end of the file:
 ```
 [actions]
 ENABLED = true
 ```
-to the end of the file >>>
-
 Then restart the Forgejo container `docker-compose down && docker-compose up`
 
 ## Build the base runner container
 
 This is the container that your workflows will run in. You can edit the `Dockerfile` to add additional applications etc. that your workflows need.
 
-`cd runner-container`
+`cd ../runner-container`
 
 `./build.sh`
 
@@ -64,7 +62,7 @@ You should now be ready to create a repository, and test actions as you would wi
 # FAQ
 1. *Everything was running fine, I killed the act container and now it wont run.*
 
-The tokens issued by Forgejo are currently one use only, once a runner has registered the token it can't be used again. There is currently no mechanism to store the .runner file created by Act, so you will have to generate a new token and update the docker-compose file.
+The tokens issued by Forgejo are currently single use only, once a runner has registered the token it can't be used again. There is currently no mechanism to store the .runner file created by Act, so you will have to generate a new token and update the docker-compose file.
 
 2. *Whenever I try to run a workflow or use a container from the registry I get `http: server gave HTTP response to HTTPS client`*
 
