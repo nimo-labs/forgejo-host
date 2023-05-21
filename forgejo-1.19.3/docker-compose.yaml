@@ -5,9 +5,11 @@ networks:
     external: false
 
 services:
-  server:
-    image: forgejo
-    container_name: forgejo
+  forgejo_server:
+    build: .
+    image: nico-labs/forgejo_server:1.0
+    container_name: forgejo_server
+    hostname: forgejo_server
     environment:
       - USER_UID=1000
       - USER_GID=1000
@@ -23,7 +25,7 @@ services:
     ports:
       - "3000:3000"
       - "2222:2222"
-  registry:
+  registry: #not tested
     restart: always
     image: registry:2
     ports:

@@ -1,23 +1,32 @@
-FROM ubuntu:rolling
+FROM debian:stable-slim
 
-RUN apt update && apt -y install\
-	git\
+RUN apt update && apt -y install \
+		git \
+		wget \
+		ca-certificates \
+		bash \
+	&& apt clean \	
 	&& rm -rf /var/lib/apt/lists/* 
 
-RUN mkdir /app
-COPY ./forgejo-1.19.3-0-linux-amd64 /app/forgejo
-RUN chmod +x /app/forgejo
-COPY ./entrypoint.sh /
+RUN wget -o forgejo https://codeberg.org/forgejo/forgejo/releases/download/v1.19.3-0/forgejo-1.19.3-0-linux-amd64 \
+	&& chmod +x forgejo \
+	&& mv forgejo /usr/local/bin/forgejo
 
-RUN useradd -m forgejo
-RUN usermod -aG forgejo forgejo
+COPY ./entrypoint.sh /entrypoint.sh
 
-RUN chown -R forgejo:forgejo /app
+RUN useradd -m forgejo \
+	&& usermod -aG forgejo forgejo \
+	&& mkdir /app \
+	&& chown -R forgejo:forgejo /app \
+	&& mkdir /app/data \
+	&& chown -R forgejo:forgejo /app/data \
+	&& mkdir /app/custom \
+	&& chown -R forgejo:forgejo /app/custom \
+	&& mkdir /app/logs \
+	&& chown -R forgejo:forgejo /app/logs
 
-
-RUN mkdir /app/data
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"] #may need to be refactored
 
-CMD ["/app/forgejo", "web"]
+CMD ["/usr/local/bin/forgejo", "web"]
