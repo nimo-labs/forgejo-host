@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  act_runner:
+    #image: kunde21/gitea-arm
+    image: act_runner
+    container_name: act_runner_1
+    environment:
+      - SERVER_ADDR=<enter forgejo server address here :3000>
+      - TOKEN=<enter token here>
+      - LABELS=ubuntu-docker:docker://ubuntu-docker:latest
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
