@@ -10,18 +10,20 @@ RUN apt update && apt -y install \
 
 RUN wget -O forgejo https://codeberg.org/forgejo/forgejo/releases/download/v1.19.3-0/forgejo-1.19.3-0-linux-amd64 \
 	&& chmod +x forgejo \
-	&& mv forgejo /usr/local/bin/forgejo
+	&& mkdir /app \
+	&& mv forgejo /app/forgejo
 
 COPY ./entrypoint.sh /entrypoint.sh
 
 RUN useradd -m forgejo \
 	&& usermod -aG forgejo forgejo \
-	&& mkdir /app \
 	&& chown -R forgejo:forgejo /app \
 	&& mkdir /app/data \
 	&& chown -R forgejo:forgejo /app/data \
 	&& mkdir /app/custom \
 	&& chown -R forgejo:forgejo /app/custom \
+	&& mkdir -p /app/custom/conf \
+	&& chown -R forgejo:forgejo /app/custom/conf \
 	&& mkdir /app/logs \
 	&& chown -R forgejo:forgejo /app/logs
 
@@ -29,4 +31,4 @@ WORKDIR /app
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"] #may need to be refactored
 
-CMD ["/usr/local/bin/forgejo", "web"]
+CMD ["/app/forgejo", "web"]
